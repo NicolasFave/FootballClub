@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "__DEV__": true
+  },
+  "rules": {
+    "arrow-parens": 0,
+    "comma-dangle": 0,
+    "generator-star-spacing": 0,
+    "import/prefer-default-export": 0,
+    "prefer-destructuring": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
+    "semi": [
+      0,
+      "always"
+    ],
+    "space-before-function-paren": 0
+  }
+}

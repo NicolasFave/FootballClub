@@ -8,11 +8,11 @@ import { connect } from 'react-redux'
 import AppNavigation from './AppNavigation'
 
 const middleware = createReactNavigationReduxMiddleware(
-  "root",
+  'root',
   state => state.nav,
 )
 
-const addListener = createReduxBoundAddListener("root")
+const addListener = createReduxBoundAddListener('root')
 
 function ReduxNavigation (props) {
   const { dispatch, nav } = props

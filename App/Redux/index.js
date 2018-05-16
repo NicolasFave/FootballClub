@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
+import { reducer as githubReducer } from './GithubRedux'
+import { reducer as navReducer } from './NavigationRedux'
+import { reducer as searchReducer } from './SearchRedux'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  nav: require('./NavigationRedux').reducer,
-  github: require('./GithubRedux').reducer,
-  search: require('./SearchRedux').reducer
+  nav: navReducer,
+  github: githubReducer,
+  search: searchReducer,
 })
 
 export default () => {
@@ -14,10 +17,10 @@ export default () => {
 
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('./').reducers
+      const nextRootReducer = reducers
       store.replaceReducer(nextRootReducer)
 
-      const newYieldedSagas = require('../Sagas').default
+      const newYieldedSagas = rootSaga
       sagasManager.cancel()
       sagasManager.done.then(() => {
         sagasManager = sagaMiddleware.run(newYieldedSagas)
