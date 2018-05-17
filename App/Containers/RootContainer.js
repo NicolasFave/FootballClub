@@ -6,17 +6,22 @@ import StartupActions from '../Redux/StartupRedux'
 
 // Styles
 import styles from './Styles/RootContainerStyles'
+import CompetitionsScreen from './CompetitionsScreen'
 
 class RootContainer extends Component {
+
+  /*
   componentDidMount () {
     this.props.startup()
   }
+  */
 
   render () {
     return (
       <View style={styles.applicationView}>
         <StatusBar barStyle="light-content" />
-        <ReduxNavigation />
+        <CompetitionsScreen />
+        {/*<ReduxNavigation />*/}
       </View>
     )
   }
@@ -27,4 +32,5 @@ const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup())
 })
 
-export default connect(null, mapDispatchToProps)(RootContainer)
+//export default connect(null, mapDispatchToProps)(RootContainer)
+export default RootContainer
