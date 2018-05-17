@@ -1,50 +1,94 @@
 // Initial state
 
 export const initialState = {
-  collection: []
+  collection: {
+    fetching: false,
+    data: null,
+    error: null,
+  }
 }
 
 // Action Types
 
-const SET_COLLECTION = 'SET_COLLECTION'
+const COMPETITIONS_REQUEST = 'COMPETITIONS_REQUEST'
+const COMPETITIONS_SUCCESS = 'COMPETITIONS_SUCCESS'
+const COMPETITIONS_ERROR = 'COMPETITIONS_ERROR'
 
 export const ActionTypes = {
-  SET_COLLECTION,
+  COMPETITIONS_REQUEST,
+  COMPETITIONS_SUCCESS,
+  COMPETITIONS_ERROR,
 }
 
 // Action Creators
 
-const setCollection = (collection) => {
-  return ({
-    type: SET_COLLECTION,
-    payload: collection,
-  })
+const competitionsRequest = () => {
+  return {
+    type: COMPETITIONS_REQUEST,
+  }
+}
+
+const competitionsSuccess = (data) => {
+  return {
+    type: COMPETITIONS_SUCCESS,
+    payload: data,
+  }
+}
+
+const competitionsError = (error) => {
+  return {
+    type: COMPETITIONS_ERROR,
+    payload: error
+  }
 }
 
 export const ActionCreators = {
-  setCollection,
+  competitionsRequest,
+  competitionsSuccess,
+  competitionsError,
 }
 
 // Selectors
 
-const getCollection = (state) => {
+const getCompetitions = (state) => {
   return state.competitions.collection
 }
 
 export const Selectors = {
-  getCollection,
+  getCompetitions,
 }
 
 // Reducer
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_COLLECTION:
+    case COMPETITIONS_REQUEST:
       return {
         ...state,
-        ...{
-          collection: action.payload,
-        },
+        collection: {
+          fetching: true,
+          data: null,
+          error: null,
+        }
+      }
+    case COMPETITIONS_SUCCESS:
+      return {
+        ...state,
+        collection: {
+          fetching: false,
+          data: action.payload,
+          error: null,
+        }
+      }
+
+    case COMPETITIONS_ERROR:
+      return {
+        ...state,
+        collection: {
+          fetching: false,
+          data: null,
+          error: action.payload,
+        }
       }
     default:
       return state
