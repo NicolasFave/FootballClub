@@ -1,16 +1,12 @@
 import { combineReducers } from 'redux'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
-import { reducer as githubReducer } from './GithubRedux'
 import { reducer as navReducer } from './NavigationRedux'
-import { reducer as searchReducer } from './SearchRedux'
 import competitionsReducer from './CompetitionsRedux'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
   nav: navReducer,
-  github: githubReducer,
-  search: searchReducer,
   competitions: competitionsReducer,
 })
 
