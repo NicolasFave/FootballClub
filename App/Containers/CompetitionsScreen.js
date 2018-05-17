@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Content } from 'native-base'
 
 import CompetitionsList from '../Components/CompetitionsList'
+import {
+  ActionCreators as CompetitionsActionCreators,
+  Selectors as CompetitionsSelectors,
+} from '../Redux/CompetitionsRedux'
 
 const competitionsMock = [{
   id: 447,
@@ -22,15 +27,31 @@ const competitionsMock = [{
 
 class CompetitionsScreen extends Component {
 
+  componentDidMount() {
+    this.props.loadCompetitions()
+  }
+
   render() {
     return (
       <Content padder>
         <CompetitionsList
-          competitions={competitionsMock}
+          competitions={this.props.competitions}
         />
       </Content>
     )
   }
 }
 
-export default CompetitionsScreen
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadCompetitions: () => dispatch(CompetitionsActionCreators.setCollection(competitionsMock))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    competitions: CompetitionsSelectors.getCollection(state),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompetitionsScreen)
