@@ -8,3 +8,10 @@ configure({ adapter: new Adapter() })
 // .mock('react-native-device-info', () => {
 //   return { isTablet: jest.fn(() => { return false }) }
 // })
+
+jest.mock('react-native-config', () => {
+  return {
+    ENDPOINT: 'https://anyapi.com',
+    API_KEY: '12345',
+  }
+})
