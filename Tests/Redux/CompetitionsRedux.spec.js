@@ -58,8 +58,8 @@ describe('reducer', () => {
       otherCollection: [],
     }
 
-    it('should return initial state when action type is undefined', () => {
-      expect(reducer(state, {})).toEqual(initialState)
+    it('should return the state when action type is undefined', () => {
+      expect(reducer(state, {})).toEqual(state)
     })
 
     it('shoud return state with competitions', () => {

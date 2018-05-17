@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import Config from '../Config/DebugConfig'
 import createSagaMiddleware from 'redux-saga'
+
+import Config from '../Config/DebugConfig'
 import ScreenTracking from './ScreenTrackingMiddleware'
 
 // creates the store

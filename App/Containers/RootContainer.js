@@ -10,11 +10,9 @@ import CompetitionsScreen from './CompetitionsScreen'
 
 class RootContainer extends Component {
 
-  /*
   componentDidMount () {
     this.props.startup()
   }
-  */
 
   render () {
     return (
@@ -32,5 +30,4 @@ const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup())
 })
 
-//export default connect(null, mapDispatchToProps)(RootContainer)
-export default RootContainer
+export default connect(null, mapDispatchToProps)(RootContainer)
