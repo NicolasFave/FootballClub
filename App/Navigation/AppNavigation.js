@@ -1,18 +1,17 @@
 import { StackNavigator } from 'react-navigation'
-import LaunchScreen from '../Containers/LaunchScreen'
+import CompetitionsScreen from '../Containers/CompetitionsScreen'
 
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  LaunchScreen: { screen: LaunchScreen }
+  CompetitionsScreen: { screen: CompetitionsScreen }
 }, {
-  // Default config for all screens
-  headerMode: 'none',
-  initialRouteName: 'LaunchScreen',
-  navigationOptions: {
-    headerStyle: styles.header
-  }
-})
+    headerMode: 'none',
+    initialRouteName: 'CompetitionsScreen',
+    navigationOptions: {
+      headerStyle: styles.header
+    }
+  })
 
 export default PrimaryNav
