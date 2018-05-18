@@ -135,6 +135,11 @@ describe('reducer', () => {
         fetching: false,
         data: [],
         error: null,
+      },
+      details: {
+        fetching: false,
+        data: null,
+        error: null,
       }
     }
 
@@ -207,6 +212,67 @@ describe('reducer', () => {
 
         // We should keep other properties in the state unchanged
         expect(reducer(state, action).otherCollection).toEqual(state.otherCollection)
+
+      })
+
+    })
+
+    describe('when calling competition details request action', () => {
+
+      it('should set fetching flag for competition details', () => {
+
+        const expectedState = {
+          fetching: true,
+          data: null,
+          error: null,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_REQUEST,
+        }
+        expect(reducer(state, action).details).toEqual(expectedState)
+
+      })
+
+    })
+
+    describe('when calling competition details successful fetch action', () => {
+
+      it('should set fetched data in the store', () => {
+
+        const expectedState = {
+          fetching: false,
+          data: competitions[0],
+          error: null,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_SUCCESS,
+          payload: competitions[0],
+        }
+
+        expect(reducer(state, action).details).toEqual(expectedState)
+
+      })
+
+    })
+
+    describe('when calling competition details failure fetch action', () => {
+
+      it('should set the fetching error in the store', () => {
+
+        const expectedState = {
+          fetching: false,
+          data: null,
+          error,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_ERROR,
+          payload: error,
+        }
+
+        expect(reducer(state, action).details).toEqual(expectedState)
 
       })
 
