@@ -1,5 +1,8 @@
 import { runSaga } from 'redux-saga'
-import { getCompetitions } from '../../App/Sagas/CompetitionsSagas'
+import {
+  getCompetitions,
+  getDetails,
+} from '../../App/Sagas/CompetitionsSagas'
 import { ActionCreators } from '../../App/Redux/CompetitionsRedux'
 
 describe('Saga getCompetitions', () => {
@@ -69,6 +72,68 @@ describe('Saga getCompetitions', () => {
       ])
     })
 
+  })
+
+})
+
+describe('Saga getDetails', () => {
+
+  const competitions = [{
+    id: 447,
+    caption: 'League One',
+  }, {
+    id: 448,
+    caption: 'League Two',
+  }]
+
+  const state = {
+    competitions: {
+      collection: {
+        fetching: false,
+        data: competitions,
+        error: null,
+      }
+    }
+  }
+
+  describe('when fetch was successful', () => {
+
+    test('it should dispatch the right actions', () => {
+      const dispatched = []
+      const sagaConfig = {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => state,
+      }
+      const saga = runSaga(sagaConfig, getDetails, 447).done
+
+      // Check the dispatched actions
+
+      expect(dispatched).toEqual([
+        ActionCreators.competitionDetailsSuccess(competitions[0])
+      ])
+
+    })
+  })
+
+  describe('when fetch failed', () => {
+
+    test('it should dispatch the right actions', () => {
+      const dispatched = []
+      const sagaConfig = {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => state,
+      }
+      const saga = runSaga(sagaConfig, getDetails, 500).done
+
+      // Check the dispatched actions
+
+      expect(dispatched).toEqual([
+        ActionCreators.competitionDetailsError({
+          status: 404,
+          error: 'could not find competition with id 500'
+        })
+      ])
+    })
   })
 
 })

@@ -5,10 +5,10 @@ import reducer, {
 } from '../../App/Redux/CompetitionsRedux'
 
 const competitions = [{
-  key: '447',
+  id: '447',
   caption: 'League One',
 }, {
-  key: '448',
+  id: '448',
   caption: 'League Two',
 }]
 
