@@ -5,10 +5,10 @@ import reducer, {
 } from '../../App/Redux/CompetitionsRedux'
 
 const competitions = [{
-  key: '447',
+  id: '447',
   caption: 'League One',
 }, {
-  key: '448',
+  id: '448',
   caption: 'League Two',
 }]
 
@@ -48,6 +48,39 @@ describe('action creators', () => {
     }
 
     expect(ActionCreators.competitionsError(error)).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition details request', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_REQUEST,
+      id: 447,
+    }
+
+    expect(ActionCreators.competitionDetailsRequest(447)).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition details successful fetching', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_SUCCESS,
+      payload: competitions[0],
+    }
+
+    expect(ActionCreators.competitionDetailsSuccess(competitions[0])).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition details fetching error', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_ERROR,
+      payload: error,
+    }
+
+    expect(ActionCreators.competitionDetailsError(error)).toEqual(expectedAction)
 
   })
 
@@ -135,6 +168,11 @@ describe('reducer', () => {
         fetching: false,
         data: [],
         error: null,
+      },
+      details: {
+        fetching: false,
+        data: null,
+        error: null,
       }
     }
 
@@ -207,6 +245,68 @@ describe('reducer', () => {
 
         // We should keep other properties in the state unchanged
         expect(reducer(state, action).otherCollection).toEqual(state.otherCollection)
+
+      })
+
+    })
+
+    describe('when calling competition details request action', () => {
+
+      it('should set fetching flag for competition details', () => {
+
+        const expectedState = {
+          fetching: true,
+          data: null,
+          error: null,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_REQUEST,
+          id: 447,
+        }
+        expect(reducer(state, action).details).toEqual(expectedState)
+
+      })
+
+    })
+
+    describe('when calling competition details successful fetch action', () => {
+
+      it('should set fetched data in the store', () => {
+
+        const expectedState = {
+          fetching: false,
+          data: competitions[0],
+          error: null,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_SUCCESS,
+          payload: competitions[0],
+        }
+
+        expect(reducer(state, action).details).toEqual(expectedState)
+
+      })
+
+    })
+
+    describe('when calling competition details failure fetch action', () => {
+
+      it('should set the fetching error in the store', () => {
+
+        const expectedState = {
+          fetching: false,
+          data: null,
+          error,
+        }
+
+        const action = {
+          type: ActionTypes.COMPETITION_DETAILS_ERROR,
+          payload: error,
+        }
+
+        expect(reducer(state, action).details).toEqual(expectedState)
 
       })
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { storiesOf } from '@storybook/react-native'
+import { action } from '@storybook/addon-actions'
 
 import CompetitionsList from './CompetitionsList';
 
@@ -30,6 +31,15 @@ storiesOf('CompetitionsList')
   .add('Empty list', () => (
     <CompetitionsList competitions={[]} />
   ))
-  .add('Not empty list', () => (
-    <CompetitionsList competitions={competitions} />
+  .add('Default list', () => (
+    <CompetitionsList
+      competitions={competitions}
+    />
   ))
+  .add('Pressable list', () => (
+    <CompetitionsList
+      competitions={competitions}
+      onPress={action('an item was pressed')}
+    />
+  ))
+

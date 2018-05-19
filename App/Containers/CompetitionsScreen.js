@@ -17,6 +17,10 @@ class CompetitionsScreen extends Component {
     this.props.loadCompetitions()
   }
 
+  _openDetail = (id) => {
+    this.props.navigation.navigate('CompetitionDetailsScreen', { id })
+  }
+
   render() {
     const { competitions } = this.props
     if (competitions.fetching) {
@@ -30,6 +34,7 @@ class CompetitionsScreen extends Component {
         <Content padder>
           <CompetitionsList
             competitions={competitions.data}
+            onPress={this._openDetail}
           />
         </Content>
       )
@@ -40,7 +45,7 @@ class CompetitionsScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest())
+  loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest()),
 })
 
 const mapStateToProps = (state) => ({

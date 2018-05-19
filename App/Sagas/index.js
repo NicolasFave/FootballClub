@@ -7,7 +7,7 @@ import { ActionTypes as CompetitionsActionTypes } from '../Redux/CompetitionsRed
 
 /* ------------- Sagas ------------- */
 
-import { getCompetitions } from './CompetitionsSagas'
+import { getCompetitions, getDetails } from './CompetitionsSagas'
 
 /* ------------- API ------------- */
 
@@ -18,5 +18,6 @@ const footballApi = FootballAPI.create()
 export default function* root() {
   yield all([
     takeLatest(CompetitionsActionTypes.COMPETITIONS_REQUEST, getCompetitions, footballApi),
+    takeLatest(CompetitionsActionTypes.COMPETITION_DETAILS_REQUEST, getDetails),
   ])
 }
