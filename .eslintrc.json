@@ -21,12 +21,15 @@
     "generator-star-spacing": 0,
     "import/prefer-default-export": 0,
     "no-else-return": 0,
+    "no-undef": 0,
     "no-underscore-dangle": 0,
     "padded-blocks": 0,
     "prefer-destructuring": 0,
+    "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,
     "react/prop-types": 0,
+    "react/require-default-props": 0,
     "semi": [
       0,
       "always"
