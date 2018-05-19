@@ -13,9 +13,31 @@ import {
 
 class CompetitionDetailsScreen extends Component {
 
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title,
+  })
+
+
+  componentWillMount() {
+    this.props.navigation.setParams({ title: 'chargement en cours ...' })
+  }
+
   componentDidMount() {
     const { params } = this.props.navigation.state
     this.props.loadCompetition(params.id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.competition !== nextProps.competition) {
+      const { competition } = nextProps
+      if (competition) {
+        if (competition.fetching) {
+          this.props.navigation.setParams({ title: 'chargement en cours ...' })
+        } else {
+          this.props.navigation.setParams({ title: competition.data.caption })
+        }
+      }
+    }
   }
 
   render() {

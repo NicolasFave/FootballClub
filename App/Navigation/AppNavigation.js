@@ -6,13 +6,19 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  CompetitionsScreen: { screen: CompetitionsScreen },
+  CompetitionsScreen: {
+    screen: CompetitionsScreen,
+    navigationOptions: {
+      headerTitle: 'Compétitions',
+    }
+  },
   CompetitionDetailsScreen: { screen: CompetitionDetailsScreen },
 }, {
-    headerMode: 'none',
+    headerMode: 'screen',
     initialRouteName: 'CompetitionsScreen',
     navigationOptions: {
-      headerStyle: styles.header
+      headerStyle: styles.header,
+      headerBackTitle: null,
     }
   })
 
