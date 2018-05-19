@@ -5,6 +5,8 @@ import {
   Body,
   ListItem,
   Text,
+  Right,
+  Icon,
 } from 'native-base'
 import { sortBy } from 'lodash'
 
@@ -12,6 +14,7 @@ class CompetitionsList extends Component {
 
   static propTypes = {
     competitions: PropTypes.array.isRequired,
+    onPress: PropTypes.func,
   }
 
   constructor(props) {
@@ -35,6 +38,12 @@ class CompetitionsList extends Component {
 
   _keyExtractor = (item, index) => `_${index}`
 
+  _onPress = (id) => {
+    if (this.props.onPress) {
+      this.props.onPress(id)
+    }
+  }
+
   _renderEmpty = () => (
     <Text>Aucune donnée</Text>
   )
@@ -42,12 +51,22 @@ class CompetitionsList extends Component {
   _renderItem = (item) => {
     const {
       caption,
+      id,
     } = item.item
     return (
-      <ListItem>
+      <ListItem
+        noIndent
+        onPress={() => this._onPress(id)}
+      >
         <Body>
           <Text>{caption}</Text>
         </Body>
+        {
+          this.props.onPress &&
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+        }
       </ListItem>
     )
   }
