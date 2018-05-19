@@ -17,7 +17,8 @@ export function* getCompetitions(api) {
   }
 }
 
-export function* getDetails(id) {
+export function* getDetails(action) {
+  const { id } = action
   const competitions = yield select(Selectors.getCompetitions)
   const details = competitions.data.find((element) => (element.id === id))
   if (details) {

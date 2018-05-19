@@ -51,6 +51,39 @@ describe('action creators', () => {
 
   })
 
+  it('should create an action for competition details request', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_REQUEST,
+      id: 447,
+    }
+
+    expect(ActionCreators.competitionDetailsRequest(447)).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition details successful fetching', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_SUCCESS,
+      payload: competitions[0],
+    }
+
+    expect(ActionCreators.competitionDetailsSuccess(competitions[0])).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition details fetching error', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_DETAILS_ERROR,
+      payload: error,
+    }
+
+    expect(ActionCreators.competitionDetailsError(error)).toEqual(expectedAction)
+
+  })
+
 })
 
 describe('reducer', () => {
@@ -229,6 +262,7 @@ describe('reducer', () => {
 
         const action = {
           type: ActionTypes.COMPETITION_DETAILS_REQUEST,
+          id: 447,
         }
         expect(reducer(state, action).details).toEqual(expectedState)
 

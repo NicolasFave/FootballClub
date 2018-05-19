@@ -104,7 +104,7 @@ describe('Saga getDetails', () => {
         dispatch: (action) => dispatched.push(action),
         getState: () => state,
       }
-      const saga = runSaga(sagaConfig, getDetails, 447).done
+      const saga = runSaga(sagaConfig, getDetails, { id: 447 }).done
 
       // Check the dispatched actions
 
@@ -123,7 +123,7 @@ describe('Saga getDetails', () => {
         dispatch: (action) => dispatched.push(action),
         getState: () => state,
       }
-      const saga = runSaga(sagaConfig, getDetails, 500).done
+      const saga = runSaga(sagaConfig, getDetails, { id: 500 }).done
 
       // Check the dispatched actions
 

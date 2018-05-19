@@ -53,9 +53,10 @@ const competitionsError = (error) => {
   }
 }
 
-const competitionDetailsRequest = () => {
+const competitionDetailsRequest = (id) => {
   return {
     type: COMPETITION_DETAILS_REQUEST,
+    id,
   }
 }
 
