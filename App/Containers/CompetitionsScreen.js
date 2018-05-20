@@ -18,7 +18,7 @@ class CompetitionsScreen extends Component {
   }
 
   _openDetail = (id) => {
-    this.props.navigation.navigate('CompetitionDetailsScreen', { id })
+    this.props.loadCompetitionDetail(id)
   }
 
   render() {
@@ -46,6 +46,7 @@ class CompetitionsScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest()),
+  loadCompetitionDetail: (id) => dispatch(CompetitionsActionCreators.competitionDetailsRequest(id)),
 })
 
 const mapStateToProps = (state) => ({

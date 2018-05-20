@@ -1,4 +1,5 @@
 import { call, put, select } from 'redux-saga/effects'
+import { NavigationActions } from 'react-navigation'
 
 import {
   ActionCreators,
@@ -23,6 +24,12 @@ export function* getDetails(action) {
   const details = competitions.data.find((element) => (element.id === id))
   if (details) {
     yield put(ActionCreators.competitionDetailsSuccess(details))
+    yield put(NavigationActions.navigate({
+      routeName: 'CompetitionDetailsScreen',
+      params: {
+        title: details.caption
+      }
+    }))
   } else {
     yield put(ActionCreators.competitionDetailsError({
       status: 404,

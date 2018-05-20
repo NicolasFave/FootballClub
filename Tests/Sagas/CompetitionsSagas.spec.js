@@ -1,4 +1,5 @@
 import { runSaga } from 'redux-saga'
+import { NavigationActions } from 'react-navigation'
 import {
   getCompetitions,
   getDetails,
@@ -109,7 +110,14 @@ describe('Saga getDetails', () => {
       // Check the dispatched actions
 
       expect(dispatched).toEqual([
-        ActionCreators.competitionDetailsSuccess(competitions[0])
+        ActionCreators.competitionDetailsSuccess(competitions[0]),
+        NavigationActions.navigate({
+          routeName: 'CompetitionDetailsScreen',
+          params: {
+            title: competitions[0].caption,
+          }
+        })
+
       ])
 
     })
