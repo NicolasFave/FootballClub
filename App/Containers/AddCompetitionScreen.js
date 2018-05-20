@@ -11,8 +11,7 @@ class AddCompetitionScreen extends Component {
     this.props.back()
   }
 
-  _onSubmit = () => {
-    console.log('on submit')
+  _onSubmit = (values) => {
   }
 
   render() {

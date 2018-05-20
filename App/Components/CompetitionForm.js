@@ -9,6 +9,10 @@ import {
   Label,
   Content,
 } from 'native-base'
+import {
+  reduxForm,
+  Field,
+} from 'redux-form'
 
 class CompetitionForm extends Component {
 
@@ -17,25 +21,43 @@ class CompetitionForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   }
 
+  _renderInput = ({
+    input,
+    label,
+    type,
+    meta: { touched, error, warning }
+  }) => {
+    return (
+      <Item
+        floatingLabel
+      >
+        <Label>{label}</Label>
+        <Input {...input} />
+      </Item>
+    )
+  }
   render() {
     return (
       <Form>
-        <Item floatingLabel>
-          <Label>id</Label>
-          <Input />
-        </Item>
-        <Item floatingLabel>
-          <Label>nom</Label>
-          <Input />
-        </Item>
-        <Item floatingLabel last>
-          <Label>nombre d'équipes</Label>
-          <Input />
-        </Item>
+        <Field
+          name="id"
+          component={this._renderInput}
+          label="id"
+        />
+        <Field
+          name="caption"
+          component={this._renderInput}
+          label="nom"
+        />
+        <Field
+          name="numberOfTeams"
+          component={this._renderInput}
+          label="nombre d'équipes"
+        />
         <Content padder>
           <Button
             block
-            onPress={this.props.onSubmit}
+            onPress={this.props.handleSubmit(this.props.onSubmit)}
           >
             <Text>Valider</Text>
           </Button>
@@ -54,4 +76,4 @@ class CompetitionForm extends Component {
   }
 }
 
-export default CompetitionForm
+export default reduxForm({ form: 'competition' })(CompetitionForm)
