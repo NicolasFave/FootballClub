@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FlatList } from 'react-native'
-import { Text } from 'native-base'
+import {
+  Button,
+  Text,
+} from 'native-base'
 import { sortBy } from 'lodash'
 import CompetitionItem from './CompetitionItem';
 
@@ -10,6 +13,7 @@ class CompetitionsList extends Component {
   static propTypes = {
     competitions: PropTypes.array.isRequired,
     onPress: PropTypes.func,
+    onAdd: PropTypes.func,
   }
 
   constructor(props) {
@@ -52,6 +56,19 @@ class CompetitionsList extends Component {
     )
   }
 
+  _renderFooter = () => {
+    return (
+      this.props.onAdd ?
+        <Button
+          block
+          onPress={this.props.onAdd}
+        >
+          <Text>Nouvelle compétition</Text>
+        </Button>
+        : null
+    )
+  }
+
   render() {
     const { competitions } = this.state
     return (
@@ -60,6 +77,7 @@ class CompetitionsList extends Component {
         renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
         ListEmptyComponent={this._renderEmpty}
+        ListFooterComponent={this._renderFooter}
       />
     )
   }

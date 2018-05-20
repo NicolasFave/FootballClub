@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import {
   Content,
   Spinner,
@@ -21,6 +22,10 @@ class CompetitionsScreen extends Component {
     this.props.loadCompetitionDetail(id)
   }
 
+  _addCompetition = () => {
+    this.props.addCompetition()
+  }
+
   render() {
     const { competitions } = this.props
     if (competitions.fetching) {
@@ -35,6 +40,7 @@ class CompetitionsScreen extends Component {
           <CompetitionsList
             competitions={competitions.data}
             onPress={this._openDetail}
+            onAdd={this._addCompetition}
           />
         </Content>
       )
@@ -46,6 +52,8 @@ class CompetitionsScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest()),
+  loadCompetitionDetail: (id) => dispatch(CompetitionsActionCreators.competitionDetailsRequest(id)),
+  addCompetition: () => dispatch(NavigationActions.navigate({ routeName: 'AddCompetitionScreen' })),
 })
 
 const mapStateToProps = (state) => ({
