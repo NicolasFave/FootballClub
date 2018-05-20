@@ -117,7 +117,6 @@ describe('Saga getDetails', () => {
             title: competitions[0].caption,
           }
         })
-
       ])
 
     })

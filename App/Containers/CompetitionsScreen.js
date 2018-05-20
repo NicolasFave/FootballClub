@@ -46,7 +46,6 @@ class CompetitionsScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest()),
-  loadCompetitionDetail: (id) => dispatch(CompetitionsActionCreators.competitionDetailsRequest(id)),
 })
 
 const mapStateToProps = (state) => ({

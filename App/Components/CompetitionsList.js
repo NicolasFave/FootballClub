@@ -33,6 +33,12 @@ class CompetitionsList extends Component {
 
   _keyExtractor = (item, index) => `_${index}`
 
+  _onPress = (id) => {
+    if (this.props.onPress) {
+      this.props.onPress(id)
+    }
+  }
+
   _renderEmpty = () => (
     <Text>Aucune donnée</Text>
   )
