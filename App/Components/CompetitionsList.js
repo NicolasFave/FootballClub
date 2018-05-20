@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FlatList } from 'react-native'
-import {
-  Body,
-  ListItem,
-  Text,
-  Right,
-  Icon,
-} from 'native-base'
+import { Text } from 'native-base'
 import { sortBy } from 'lodash'
+import CompetitionItem from './CompetitionItem';
 
 class CompetitionsList extends Component {
 
@@ -49,25 +44,11 @@ class CompetitionsList extends Component {
   )
 
   _renderItem = (item) => {
-    const {
-      caption,
-      id,
-    } = item.item
     return (
-      <ListItem
-        noIndent
-        onPress={() => this._onPress(id)}
-      >
-        <Body>
-          <Text>{caption}</Text>
-        </Body>
-        {
-          this.props.onPress &&
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        }
-      </ListItem>
+      <CompetitionItem
+        competition={item.item}
+        onPress={this.props.onPress}
+      />
     )
   }
 

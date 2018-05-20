@@ -93,7 +93,10 @@
     "setupFiles": [
       "<rootDir>/Tests/Setup"
     ],
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|native-base-shoutem-theme|native-base)"
+    ]
   },
   "config": {},
   "standard": {

@@ -18,7 +18,7 @@ class CompetitionsScreen extends Component {
   }
 
   _openDetail = (id) => {
-    this.props.navigation.navigate('CompetitionDetailsScreen', { id })
+    this.props.loadCompetitionDetail(id)
   }
 
   render() {
