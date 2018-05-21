@@ -3,6 +3,7 @@ import { NavigationActions } from 'react-navigation'
 import {
   getCompetitions,
   getDetails,
+  addCompetition,
 } from '../../App/Sagas/CompetitionsSagas'
 import { ActionCreators } from '../../App/Redux/CompetitionsRedux'
 
@@ -144,3 +145,50 @@ describe('Saga getDetails', () => {
   })
 
 })
+describe('Saga addCompetition', () => {
+
+  const competitions = [{
+    id: 447,
+    caption: 'League One',
+  }, {
+    id: 448,
+    caption: 'League Two',
+  }]
+
+  const state = {
+    competitions: {
+      collection: {
+        fetching: false,
+        data: competitions,
+        error: null,
+      }
+    }
+  }
+
+  describe('when add was successful', () => {
+
+    test('it should dispatch the right actions', () => {
+      const dispatched = []
+      const sagaConfig = {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => state,
+      }
+      const newCompetition = {
+        id: 999,
+        caption: 'Test',
+        numberOfTeams: 20,
+      }
+      const saga = runSaga(sagaConfig, addCompetition, { payload: newCompetition }).done
+
+      // Check the dispatched actions
+
+      expect(dispatched).toEqual([
+        ActionCreators.competitionAddSuccess(newCompetition),
+        NavigationActions.navigate({ routeName: 'CompetitionsScreen' }),
+      ])
+
+    })
+  })
+
+})
+

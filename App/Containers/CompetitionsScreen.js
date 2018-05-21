@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import {
+  Button,
   Content,
+  Footer,
+  FooterTab,
   Spinner,
+  Text,
 } from 'native-base'
 
 import CompetitionsList from '../Components/CompetitionsList'
@@ -14,11 +19,17 @@ import {
 class CompetitionsScreen extends Component {
 
   componentDidMount() {
-    this.props.loadCompetitions()
+    if (this.props.competitions.data === null && !this.props.competitions.fetching) {
+      this.props.loadCompetitions()
+    }
   }
 
   _openDetail = (id) => {
     this.props.loadCompetitionDetail(id)
+  }
+
+  _addCompetition = () => {
+    this.props.addCompetition()
   }
 
   render() {
@@ -30,14 +41,24 @@ class CompetitionsScreen extends Component {
         </Content>
       )
     } else if (competitions.data) {
-      return (
-        <Content padder>
+      return [
+        <Content padder key="content">
           <CompetitionsList
             competitions={competitions.data}
             onPress={this._openDetail}
           />
-        </Content>
-      )
+        </Content>,
+        <Footer key="footer">
+          <FooterTab>
+            <Button
+              block
+              onPress={this._addCompetition}
+            >
+              <Text>Nouvelle compétition</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      ]
     } else {
       return null
     }
@@ -47,6 +68,7 @@ class CompetitionsScreen extends Component {
 const mapDispatchToProps = (dispatch) => ({
   loadCompetitions: () => dispatch(CompetitionsActionCreators.competitionsRequest()),
   loadCompetitionDetail: (id) => dispatch(CompetitionsActionCreators.competitionDetailsRequest(id)),
+  addCompetition: () => dispatch(NavigationActions.navigate({ routeName: 'AddCompetitionScreen' })),
 })
 
 const mapStateToProps = (state) => ({

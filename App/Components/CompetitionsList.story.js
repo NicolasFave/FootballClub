@@ -42,4 +42,11 @@ storiesOf('CompetitionsList')
       onPress={action('an item was pressed')}
     />
   ))
+  .add('with add button', () => (
+    <CompetitionsList
+      competitions={competitions}
+      onPress={action('an item was pressed')}
+      onAdd={action('add was pressed')}
+    />
+  ))
 
