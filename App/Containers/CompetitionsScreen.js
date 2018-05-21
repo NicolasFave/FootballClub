@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import {
+  Button,
   Content,
+  Footer,
+  FooterTab,
   Spinner,
+  Text,
 } from 'native-base'
 
 import CompetitionsList from '../Components/CompetitionsList'
@@ -35,15 +39,24 @@ class CompetitionsScreen extends Component {
         </Content>
       )
     } else if (competitions.data) {
-      return (
-        <Content padder>
+      return [
+        <Content padder key="content">
           <CompetitionsList
             competitions={competitions.data}
             onPress={this._openDetail}
-            onAdd={this._addCompetition}
           />
-        </Content>
-      )
+        </Content>,
+        <Footer key="footer">
+          <FooterTab>
+            <Button
+              block
+              onPress={this._addCompetition}
+            >
+              <Text>Nouvelle compétition</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      ]
     } else {
       return null
     }
