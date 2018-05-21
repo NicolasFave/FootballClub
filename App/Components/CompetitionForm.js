@@ -47,7 +47,7 @@ class CompetitionForm extends Component {
           />
           {
             /*
-            BUG !!!
+            FIXME https://github.com/GeekyAnts/NativeBase/issues/1915
             hasError &&
             <Icon name="close-circle" />
             */
