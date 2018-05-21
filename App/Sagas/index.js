@@ -1,5 +1,7 @@
 import { takeLatest, all } from 'redux-saga/effects'
-import FootballAPI from '../Services/FootballApi'
+import FootballApi from '../Services/FootballApi'
+import FootballFixturesApi from '../Services/FootballFixtureApi'
+import DebugConfig from '../Config/DebugConfig'
 
 /* ------------- Types ------------- */
 
@@ -15,7 +17,7 @@ import {
 
 /* ------------- API ------------- */
 
-const footballApi = FootballAPI.create()
+const footballApi = DebugConfig.useFixtures ? FootballFixturesApi : FootballApi.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
