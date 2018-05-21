@@ -37,3 +37,9 @@ export function* getDetails(action) {
     }))
   }
 }
+
+export function* addCompetition(action) {
+  const { payload: competition } = action
+  yield put(ActionCreators.competitionAddSuccess(competition))
+  yield put(NavigationActions.navigate({ routeName: 'CompetitionsScreen' }))
+}

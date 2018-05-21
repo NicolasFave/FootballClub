@@ -21,6 +21,9 @@ const COMPETITIONS_ERROR = 'COMPETITIONS_ERROR'
 const COMPETITION_DETAILS_REQUEST = 'COMPETITION_DETAILS_REQUEST'
 const COMPETITION_DETAILS_SUCCESS = 'COMPETITION_DETAILS_SUCCESS'
 const COMPETITION_DETAILS_ERROR = 'COMPETITION_DETAILS_ERROR'
+const COMPETITION_ADD_REQUEST = 'COMPETITION_ADD_REQUEST'
+const COMPETITION_ADD_SUCCESS = 'COMPETITION_ADD_SUCCESS'
+const COMPETITION_ADD_ERROR = 'COMPETITION_ADD_ERROR'
 
 export const ActionTypes = {
   COMPETITIONS_REQUEST,
@@ -29,6 +32,9 @@ export const ActionTypes = {
   COMPETITION_DETAILS_REQUEST,
   COMPETITION_DETAILS_SUCCESS,
   COMPETITION_DETAILS_ERROR,
+  COMPETITION_ADD_REQUEST,
+  COMPETITION_ADD_SUCCESS,
+  COMPETITION_ADD_ERROR,
 }
 
 // Action Creators
@@ -74,6 +80,26 @@ const competitionDetailsError = (error) => {
   }
 }
 
+const competitionAddRequest = (data) => {
+  return {
+    type: COMPETITION_ADD_REQUEST,
+    payload: data,
+  }
+}
+
+const competitionAddSuccess = (data) => {
+  return {
+    type: COMPETITION_ADD_SUCCESS,
+    payload: data,
+  }
+}
+
+const competitionAddError = (error) => {
+  return {
+    type: COMPETITION_ADD_ERROR,
+    payload: error
+  }
+}
 
 export const ActionCreators = {
   competitionsRequest,
@@ -82,6 +108,9 @@ export const ActionCreators = {
   competitionDetailsRequest,
   competitionDetailsSuccess,
   competitionDetailsError,
+  competitionAddRequest,
+  competitionAddSuccess,
+  competitionAddError,
 }
 
 // Selectors
@@ -161,6 +190,22 @@ const reducer = (state = initialState, action) => {
           fetching: false,
           data: null,
           error: action.payload,
+        }
+      }
+
+    case COMPETITION_ADD_SUCCESS:
+
+      const newCollectionData = [
+        ...state.collection.data,
+        action.payload,
+      ]
+
+      return {
+        ...state,
+        collection: {
+          fetching: false,
+          data: newCollectionData,
+          error: null,
         }
       }
 

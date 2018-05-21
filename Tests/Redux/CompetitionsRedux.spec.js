@@ -84,6 +84,39 @@ describe('action creators', () => {
 
   })
 
+  it('should create an action for competition add request', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_ADD_REQUEST,
+      payload: competitions[0],
+    }
+
+    expect(ActionCreators.competitionAddRequest(competitions[0])).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition add successful fetching', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_ADD_SUCCESS,
+      payload: competitions[0],
+    }
+
+    expect(ActionCreators.competitionAddSuccess(competitions[0])).toEqual(expectedAction)
+
+  })
+
+  it('should create an action for competition add fetching error', () => {
+
+    const expectedAction = {
+      type: ActionTypes.COMPETITION_ADD_ERROR,
+      payload: error,
+    }
+
+    expect(ActionCreators.competitionAddError(error)).toEqual(expectedAction)
+
+  })
+
 })
 
 describe('reducer', () => {
@@ -309,6 +342,38 @@ describe('reducer', () => {
         expect(reducer(state, action).details).toEqual(expectedState)
 
       })
+
+    })
+
+    describe('when calling competitions add request action success', () => {
+
+      const theState = {
+        collection: {
+          fetching: false,
+          data: competitions,
+          error: null,
+        },
+      }
+
+      const newCompetition = {
+        id: 543,
+        caption: 'Nouvelle compétition',
+        numberOfTeams: 20,
+      }
+
+      const expectedCompetitions = [
+        ...competitions,
+        newCompetition
+      ]
+
+      const action = {
+        type: ActionTypes.COMPETITION_ADD_SUCCESS,
+        payload: newCompetition,
+      }
+
+      const newState = reducer(theState, action)
+      expect(newState.collection.data.length).toBe(theState.collection.data.length + 1)
+      expect(newState.collection.data).toEqual(expectedCompetitions)
 
     })
 

@@ -19,7 +19,9 @@ import {
 class CompetitionsScreen extends Component {
 
   componentDidMount() {
-    this.props.loadCompetitions()
+    if (this.props.competitions.data === null && !this.props.competitions.fetching) {
+      this.props.loadCompetitions()
+    }
   }
 
   _openDetail = (id) => {

@@ -4,6 +4,7 @@ import { Content } from 'native-base'
 import { NavigationActions } from 'react-navigation'
 
 import CompetitionForm from '../Components/CompetitionForm'
+import { ActionCreators as CompetitionsActionCreators } from '../Redux/CompetitionsRedux'
 
 class AddCompetitionScreen extends Component {
 
@@ -12,7 +13,7 @@ class AddCompetitionScreen extends Component {
   }
 
   _onSubmit = (values) => {
-    console.log(values)
+    this.props.addCompetition(values)
   }
 
   render() {
@@ -29,6 +30,7 @@ class AddCompetitionScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   back: () => dispatch(NavigationActions.back()),
+  addCompetition: (competition) => dispatch(CompetitionsActionCreators.competitionAddRequest(competition)),
 })
 
 export default connect(null, mapDispatchToProps)(AddCompetitionScreen)
