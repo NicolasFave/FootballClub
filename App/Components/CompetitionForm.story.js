@@ -3,16 +3,13 @@ import { View } from 'react-native'
 import { Container, Content } from 'native-base'
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import { reducer as formReducer } from 'redux-form'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import CompetitionForm from './CompetitionForm'
 
-const store = createStore(formReducer)
+import CompetitionForm from './CompetitionForm'
+import { FormDecorator } from '../../storybook/FormDecorator'
 
 storiesOf('CompetitionForm')
   .addDecorator(getStory => (
-    <Provider store={store}>
+    <FormDecorator>
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <Container>
           <Content padder>
@@ -20,7 +17,7 @@ storiesOf('CompetitionForm')
           </Content>
         </Container>
       </View>
-    </Provider>
+    </FormDecorator>
   ))
   .add('default', () => (
     <CompetitionForm
