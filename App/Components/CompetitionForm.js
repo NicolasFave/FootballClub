@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
+  Content,
   Form,
+  Icon,
   Input,
   Item,
-  Text,
   Label,
-  Content,
+  Text,
 } from 'native-base'
 import {
   reduxForm,
@@ -24,18 +25,42 @@ class CompetitionForm extends Component {
   _renderInput = ({
     input,
     label,
-    type,
+    keyboardType,
     meta: { touched, error, warning }
   }) => {
+
+    let hasError = false
+    if (touched && error !== undefined) {
+      hasError = true
+    }
+
     return (
-      <Item
-        floatingLabel
-      >
-        <Label>{label}</Label>
-        <Input {...input} />
-      </Item>
+      <Content>
+        <Item
+          floatingLabel
+          error={hasError}
+        >
+          <Label>{label}</Label>
+          <Input
+            {...input}
+            keyboardType={keyboardType}
+          />
+          {
+            /*
+            BUG !!!
+            hasError &&
+            <Icon name="close-circle" />
+            */
+          }
+        </Item>
+        {
+          hasError &&
+          <Text style={{ color: 'red' }}>{error}</Text>
+        }
+      </Content>
     )
   }
+
   render() {
     return (
       <Form>
@@ -43,6 +68,7 @@ class CompetitionForm extends Component {
           name="id"
           component={this._renderInput}
           label="id"
+          keyboardType="numeric"
         />
         <Field
           name="caption"
@@ -53,6 +79,7 @@ class CompetitionForm extends Component {
           name="numberOfTeams"
           component={this._renderInput}
           label="nombre d'équipes"
+          keyboardType="numeric"
         />
         <Content padder>
           <Button
@@ -76,4 +103,21 @@ class CompetitionForm extends Component {
   }
 }
 
-export default reduxForm({ form: 'competition' })(CompetitionForm)
+const validate = (values) => {
+  const errors = {}
+  if (!values.id) {
+    errors.id = 'veuillez saisir un id'
+  }
+  if (!values.caption) {
+    errors.caption = 'veuillez saisir un nom'
+  }
+  if (!values.numberOfTeams) {
+    errors.numberOfTeams = 'veuillez saisir un nombre d\'équipes'
+  }
+  return errors
+}
+
+export default reduxForm({
+  form: 'competition',
+  validate,
+})(CompetitionForm)

@@ -12,6 +12,7 @@ class AddCompetitionScreen extends Component {
   }
 
   _onSubmit = (values) => {
+    console.log(values)
   }
 
   render() {
